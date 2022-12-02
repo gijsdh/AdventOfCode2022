@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     sumB = 0
     for (line in input.lines()) {
         sum += countRegex(line)
-        sumB +=countRegexB(line)
+        sumB += countRegexB(line)
     }
 
     println("answer A (regex)" + sum)
@@ -44,11 +44,11 @@ fun countRegexB(s: String): Int {
 
 fun count(s: String, s1: String): Int {
     var counter = 0
-    if(s1.equals("X")) counter += 1
-    if(s1.equals("Y")) counter += 2
-    if(s1.equals("Z")) counter += 3
-    if((s.equals("A") && s1.equals("X")) || (s.equals("B") && s1.equals("Y")) || (s.equals("C") && s1.equals("Z"))) counter+=3
-    if((s.equals("A") && s1.equals("Y")) || (s.equals("B") && s1.equals("Z")) || (s.equals("C") && s1.equals("X"))) counter+=6
+    if (s1.equals("X")) counter += 1
+    if (s1.equals("Y")) counter += 2
+    if (s1.equals("Z")) counter += 3
+    if ((s.equals("A") && s1.equals("X")) || (s.equals("B") && s1.equals("Y")) || (s.equals("C") && s1.equals("Z"))) counter += 3
+    if ((s.equals("A") && s1.equals("Y")) || (s.equals("B") && s1.equals("Z")) || (s.equals("C") && s1.equals("X"))) counter += 6
     return counter
 }
 
@@ -70,7 +70,7 @@ fun countB(s: String, s1: String): Int {
         if (s.equals("B")) second = "X"
         if (s.equals("C")) second = "Y"
     }
-    return count(s,second)
+    return count(s, second)
 }
 
 // X means you need to lose, Y means you need to end the round in a draw, and Z means you
