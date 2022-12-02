@@ -5,7 +5,6 @@ fun main(args: Array<String>) {
     var sum = 0;
     var max = 0
     var list: MutableList<Int> = mutableListOf()
-
     for (line in inputLines) {
         if (line.isNotEmpty()) {
             sum += line.toInt();
@@ -19,7 +18,6 @@ fun main(args: Array<String>) {
     }
 
     println("Answer A: " + max)
-
     list.sortDescending()
     var answer = list[0] + list[1] + list[2]
     println("Answer B: " + answer)
@@ -33,8 +31,8 @@ fun main(args: Array<String>) {
             .filter { it.isNotEmpty() }
             .map { it.toInt() } }
 
-    println("func A:" + func.map { it.reduce{ i, j -> i+j}}.max())
-    println("func B:" + func.map { it.reduce{ i, j -> i+j}}.sorted().takeLast(3).sum())
+    println("func A:" + func.map { it.sum()}.max())
+    println("func B:" + func.map { it.sum()}.sorted().takeLast(3).sum())
 }
 
 fun getResourceAsText(path: String): String {
