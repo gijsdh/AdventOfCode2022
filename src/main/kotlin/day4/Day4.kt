@@ -14,11 +14,16 @@ fun main(args: Array<String>) {
         val Y1 = partTwo[0].toInt()
         val Y2 = partTwo[1].toInt()
 
+        // We need to check if two segments pairs overlap each other completely, here it is as easy to check if y1 -- y2 falls in between x1 --x2
+        // It is two check as the other way around is also possible, that y1-y2 totally contains x1-x2.
         if (X1 <= Y1 && X2 >= Y2) {
             sum++
         } else if (X2 <= Y2 && X1 >= Y1) {
             sum++
         }
+        // For part b we need find all overlapping line pair segments.
+        // Here calculate all none overlapping segments
+        // So we can just total number of lines pairs minus non overlapping segments.
         if (X2 < Y1 || X1 > Y2) {
             sum2++
         }
