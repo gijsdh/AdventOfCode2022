@@ -15,12 +15,12 @@ fun main(args: Array<String>) {
         val Y2 = partTwo[1].toInt()
 
         if (X1 <= Y1 && X2 >= Y2) {
-            sum += 1
+            sum++
         } else if (X2 <= Y2 && X1 >= Y1) {
-            sum += 1
+            sum++
         }
         if (X2 < Y1 || X1 > Y2) {
-            sum2 += 1
+            sum2++
         }
     }
 

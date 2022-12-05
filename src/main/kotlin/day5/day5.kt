@@ -8,31 +8,38 @@ fun main(args: Array<String>) {
 
     val inputOne = inputLines[0].lines().filter { it.isNotEmpty() }
     val inputTwo = inputLines[1].lines()
-    var queusPartOne: MutableList<LinkedList<Char>> = linkedLists(inputOne)
-    var queusPartTwo: MutableList<LinkedList<Char>> = linkedLists(inputOne)
+    var queuesPartOne: MutableList<LinkedList<Char>> = parseInputToLinkedLists(inputOne)
+    var queuesPartTwo: MutableList<LinkedList<Char>> = parseInputToLinkedLists(inputOne)
 
     for (line in inputTwo) {
         var input =
-            line.split(Regex("move|from|to")).map { it.trim() }.filter { it.isNotEmpty() }.map { it.toInt() - 1 }
+            line.split(Regex("move|from|to"))
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .map { it.toInt() - 1 } //To zero based
+
+        val destinationIndex = input[2]
+        val originIndex = input[1]
         var temp = mutableListOf<Char>()
+
         for (i in 0 until input[0] + 1) {
-            temp.add(queusPartTwo[input[1]].pop())
-            queusPartOne[input[2]].push(queusPartOne[input[1]].pop())
+            temp.add(queuesPartTwo[originIndex].pop())
+            queuesPartOne[destinationIndex].push(queuesPartOne[originIndex].pop())
         }
         for (char in temp.reversed()) {
-            queusPartTwo[input[2]].push(char)
+            queuesPartTwo[destinationIndex].push(char)
         }
     }
 
     println("---------Answer A------------- ")
     println()
-    for (que in queusPartOne) {
+    for (que in queuesPartOne) {
         print(que.first)
     }
     println()
     println("---------Answer B-------------")
     println()
-    for (que in queusPartTwo) {
+    for (que in queuesPartTwo) {
         print(que.first)
     }
 }
@@ -48,7 +55,7 @@ fun main(args: Array<String>) {
 //[B] [W] [N] [P] [D] [V] [G] [L] [T]
 // 1   2   3   4   5   6   7   8   9
 
-private fun linkedLists(inputOne: List<String>): MutableList<LinkedList<Char>> {
+private fun parseInputToLinkedLists(inputOne: List<String>): MutableList<LinkedList<Char>> {
     var queus: MutableList<LinkedList<Char>> = mutableListOf();
     val size = inputOne[inputOne.size - 1].trim().last().toString().toInt()
     for (j in 0 until size) {

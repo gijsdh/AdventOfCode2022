@@ -9,12 +9,12 @@ fun main(args: Array<String>) {
     var sum = 0
     for (line in inputLines) {
         val endIndex = line.length / 2
-        var lineOne = line.subSequence(0, endIndex)
-        var lineTwo = line.subSequence(endIndex, line.length)
+        val lineOne = line.subSequence(0, endIndex)
+        val lineTwo = line.subSequence(endIndex, line.length)
 
         if (lineOne.length != lineTwo.length) throw Exception("error")
 
-        lineOne.forEach { letterArray[it.toInt()] = 1 }
+        lineOne.forEach { letterArray[it.code] = 1 }
 
         for (letter in lineTwo) {
             if (letterArray[letter.code] != 0) {
