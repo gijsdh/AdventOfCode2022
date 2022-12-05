@@ -2,10 +2,11 @@ import java.util.LinkedList
 
 fun main(args: Array<String>) {
     val input = getResourceAsText("input.txt")
+    val inputExample = getResourceAsText("inputExample.txt")
 
     val inputLines = input.split("\n\r\n") //split on empty line
 
-    val inputOne = inputLines[0].lines()
+    val inputOne = inputLines[0].lines().filter { it.isNotEmpty() }
     val inputTwo = inputLines[1].lines()
     var queusPartOne: MutableList<LinkedList<Char>> = linkedLists(inputOne)
     var queusPartTwo: MutableList<LinkedList<Char>> = linkedLists(inputOne)
@@ -49,14 +50,14 @@ fun main(args: Array<String>) {
 
 private fun linkedLists(inputOne: List<String>): MutableList<LinkedList<Char>> {
     var queus: MutableList<LinkedList<Char>> = mutableListOf();
-
-    for (j in 0 until 9) {
+    val size = inputOne[inputOne.size - 1].trim().last().toString().toInt()
+    for (j in 0 until size) {
         var list = LinkedList<Char>()
         queus.add(list)
     }
     var counter = 1
     for (i in 0 until inputOne.size - 1) {
-        for (j in 0 until 9) {
+        for (j in 0 until size) {
             if (inputOne[i][counter].isLetter()) {
                 queus[j].add(inputOne[i][counter])
             }
