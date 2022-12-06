@@ -23,7 +23,7 @@ fun main(args: Array<String>) {
         }
         // For part b we need find all overlapping line pair segments.
         // Here calculate all none overlapping segments
-        // So we can just total number of lines pairs minus non overlapping segments.
+        // So we can just do the following total number of lines pairs minus non overlapping segments.
         if (X2 < Y1 || X1 > Y2) {
             sum2++
         }
