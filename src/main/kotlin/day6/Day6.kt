@@ -8,14 +8,12 @@ fun main(args: Array<String>) {
 
 private fun getFirstDistinctSequence(letters: List<String>, size: Int): Int {
     var set = mutableSetOf<String>()
-    for (i in 0 until letters.size) {
+    for (i in 0 until letters.size - size) {
         for (j in 0 until size) {
             set.add(letters[i + j])
         }
-        if (set.size == size) {
-            return i + size
-        }
-        set = mutableSetOf()
+        if (set.size == size) return i + size
+        set.clear()
     }
     return -1
 }
