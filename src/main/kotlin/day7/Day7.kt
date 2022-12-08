@@ -19,6 +19,8 @@ fun main(args: Array<String>) {
         }
     }
 
+    //This a bit overkill should have calculated it in parsing the input. Was initial set up.
+    //Took me a while to realise name of folder was not unique.
     var sizes :MutableMap<String, Long> = mutableMapOf()
     calculateFolderSize(folder, sizes)
 
@@ -26,8 +28,6 @@ fun main(args: Array<String>) {
     println("Answer A: " + dirs.filter { it.size <= 100000 }.sumOf { it.size })
     println("Answer B: " + dirs.filter { it.size >= 30000000 - freeSpace }.minOf { it.size })
 
-    //This a bit overkill should have calculated it in parsing the input. Was initial set up.
-    //Took me a while to realise name of folder was not unique.
     println("Recursive Answer A: " + sizes.map { it.value }.filter { it <= 100000 }.sum())
     println("Recursive Answer B: " + sizes.map { it.value }.filter { it >= 30000000 - freeSpace }.min())
 }
