@@ -2,7 +2,6 @@ fun main(args: Array<String>) {
     val input = getResourceAsText("input.txt")
     val inputExample = getResourceAsText("inputExample.txt")
     val inputLines = input.lines()
-
     val trees = inputLines.map { it.split("").filter { it.isNotEmpty() }.map { it.toInt() }.toIntArray() }.toTypedArray()
 
     var sum = 0
@@ -18,9 +17,13 @@ fun main(args: Array<String>) {
             }
         }
     }
+    println("Answer A: $sum")
+    println("Answer B: $max")
+}
 
-    println("Answer A: "+sum)
-    println("Answer B: "+max)
+private fun isValidIndex(i: Int, j: Int, l: Int, k: Int): Boolean {
+    if (i < 0 || j < 0 || i >= l || j >= k) return false
+    return true
 }
 
 private fun checkNeighbours(numbers: Array<IntArray>, i: Int, j: Int): Boolean {
@@ -30,7 +33,7 @@ private fun checkNeighbours(numbers: Array<IntArray>, i: Int, j: Int): Boolean {
         val index_I = i + ith[k]
         val index_J = j + jth[k]
         if (!isValidIndex(index_I, index_J, numbers.size, numbers[0].size)) {
-            return true
+            return true //Edges are always visible
         }
     }
     var rangeRight = IntRange(j + 1, numbers[0].size - 1)
@@ -38,14 +41,14 @@ private fun checkNeighbours(numbers: Array<IntArray>, i: Int, j: Int): Boolean {
     var rangeDown = IntRange(i + 1, numbers.size - 1)
     var rangeUp = i - 1 downTo 0
 
-    if (checkHorizontalRange(rangeRight, numbers, i, j, true)) return true
-    if (checkHorizontalRange(rangeLeft, numbers, i, j, true)) return true
-    if (checkHorizontalRange(rangeDown, numbers, i, j, false)) return true
-    if (checkHorizontalRange(rangeUp, numbers, i, j, false)) return true
+    if (checkRange(rangeRight, numbers, i, j, true)) return true
+    if (checkRange(rangeLeft, numbers, i, j, true)) return true
+    if (checkRange(rangeDown, numbers, i, j, false)) return true
+    if (checkRange(rangeUp, numbers, i, j, false)) return true
     return false
 }
 
-private fun checkHorizontalRange(
+private fun checkRange(
     range: Iterable<Int>,
     numbers: Array<IntArray>,
     i: Int,
@@ -63,10 +66,10 @@ private fun checkHorizontalRange(
 private fun checkNeighboursScenicScore(numbers: Array<IntArray>, i: Int, j: Int): Int {
     var scoreArray = intArrayOf(0, 0, 0, 0)
 
-    var rangeRight = if (j + 1 != numbers[0].size) IntRange(j + 1, numbers[0].size - 1) else IntRange(0, 0)
-    var rangeLeft = if (j - 1 > -1) j - 1 downTo 0 else IntRange(0, 0)
-    var rangeDown = if (i + 1 != numbers.size) IntRange(i + 1, numbers.size - 1) else IntRange(0, 0)
-    var rangeUp = if (i + 1 > -1) i - 1 downTo 0 else IntRange(0, 0)
+    var rangeRight = if (j + 1 != numbers[0].size) IntRange(j + 1, numbers[0].size - 1) else IntRange.EMPTY
+    var rangeLeft = if (j - 1 > -1) j - 1 downTo 0 else IntRange.EMPTY
+    var rangeDown = if (i + 1 != numbers.size) IntRange(i + 1, numbers.size - 1) else IntRange.EMPTY
+    var rangeUp = if (i + 1 > -1) i - 1 downTo 0 else IntRange.EMPTY
 
     scoreArray[0] = countTree(rangeRight, numbers, i, j, true)
     scoreArray[1] = countTree(rangeLeft, numbers, i, j, true)
@@ -92,8 +95,4 @@ private fun countTree(
     return counter
 }
 
-private fun isValidIndex(i: Int, j: Int, l: Int, k: Int): Boolean {
-    if (i < 0 || j < 0 || i >= l || j >= k) return false
-    return true
 
-}
