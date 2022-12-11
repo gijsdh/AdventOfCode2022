@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
             }
             "addx".equals(input[0]) -> {
                 var number = input[1].trim().toInt()
-                
+
                 cycle ++
                 signalStrength += calculateSignal(cycle, x)
                 drawPixel(x, array, position)
