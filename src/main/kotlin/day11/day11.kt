@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
     playRounds(monkeyListPartOne, modulo, 20, true)
 
     println("Answer A  = " + calcAnswer(monkeyListPartOne))
-    println("Answer B  = " +calcAnswer(monkeyListPartTwo))
+    println("Answer B  = " + calcAnswer(monkeyListPartTwo))
 }
 
 private fun parseInput(
@@ -50,7 +50,7 @@ private fun parseInput(
     }
 }
 
-private fun calcAnswer(monkeyList: MutableList<Monkey>) = monkeyList
+private fun calcAnswer(monkeyList: MutableList<Monkey>): Long = monkeyList
     .sortedWith(compareBy { it.inspections })
     .takeLast(2)
     .map { it.inspections }
