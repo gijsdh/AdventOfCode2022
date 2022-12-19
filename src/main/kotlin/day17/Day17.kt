@@ -7,7 +7,8 @@ fun main(args: Array<String>) {
     var totalTower: MutableSet<Pair<Long, Long>> =
         mutableSetOf(Pair(0, 0), Pair(1, 0), Pair(2, 0), Pair(3, 0), Pair(4, 0), Pair(5, 0), Pair(6, 0))
 
-    //Stole solution stretgy from the net.
+
+    //Stole solution strategy from the net kudos to Jonathan Paulson
     var repeatingShape: MutableMap<Triple<MutableSet<Pair<Long, Long>>, Long, Long>, Pair<Long, Long>> = mutableMapOf()
 
     var count = 0L
@@ -35,16 +36,20 @@ fun main(args: Array<String>) {
             if (piece.filter { totalTower.contains(Pair(it.first, it.second - 1)) }.size > 0) {
                 totalTower.addAll(piece)
 
+
+                // We take the last 30 rows as the shape of the tower.
+                // And we look in the map if we have already seen this same shape with corresponding action and piece.
+                // If we have we know that we have a repeagin pattern and we can calculate the height which we gained.
                 var shape = transformToZeroHeigh(totalTower)
                 var repeat = Triple(shape, (count % 5).toLong(), i.toLong())
-                if (repeatingShape.contains(repeat)) {
+                if (repeatingShape.contains(repeat) && count > 2022) {
                     var old = repeatingShape[repeat]
                     var height = getMaxHeight(totalTower)
 
-                    var dy = height-old!!.first
-                    var dt = count-old!!.second
+                    var dy = height - old!!.first
+                    var dt = count - old!!.second
                     var amt = (1000000000000L - count) / dt
-                    added += amt*dy
+                    added += amt * dy
                     count += amt*dt
                 }
                 repeatingShape.put(repeat, Pair(getMaxHeight(totalTower), count))
@@ -52,6 +57,7 @@ fun main(args: Array<String>) {
             }
             piece = moveDown(piece)
         }
+        if(count == 2021L) println(getMaxHeight(totalTower))
         count++
     }
     
