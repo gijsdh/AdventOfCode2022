@@ -46,13 +46,13 @@ fun main(args: Array<String>) {
 //      line 2             X1--------------------------X2
 //      =
 //      line 3  X1-------------------------------------X2
-// We try to reduce to as few possible lines, so we can easily see what is covered of that line.
+// We try to reduce all overlapping lines, so we can easily see what is covered of that line.
 fun reduceLines(list: MutableList<Pair<Long, Long>>): MutableList<Pair<Long, Long>> {
     var sortedList = list.sortedWith(compareBy({ it.first }, { it.second }))
     var previous = sortedList[0]
     var mutableList = mutableListOf<Pair<Long, Long>>()
     for (line in sortedList) {
-        // we also consider lines overlapping when they are adjacent for example: (1,10) -(11,16)
+        // we also consider lines overlapping when they are adjacent for example: (1,10) -> (11,16)
         if ((line.first <= previous.second || line.first - 1 <= previous.second) && line.second >= previous.second) {
             previous = Pair(previous.first, line.second)
         } else if (line.second >= previous.second) {
