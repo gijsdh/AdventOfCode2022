@@ -21,12 +21,8 @@ fun main(args: Array<String>) {
         sum2 += checkNeighbours(set, cube, false)
     }
 
-
     println(sum)
     println(sum2)
-
-
-
 }
 
 
