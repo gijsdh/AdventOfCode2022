@@ -1,14 +1,11 @@
 import java.lang.Integer.max
 
 fun main(args: Array<String>) {
-    val input = getResourceAsText("input.txt")
-    val inputExample = getResourceAsText("inputExample.txt")
+    val input = getResourceAsText("input19.txt")
+    val inputExample = getResourceAsText("inputExample19.txt")
     val inputLines = input.lines().map { it.split(Regex(" |:")).filter { it.isNotEmpty() } }
 
-
     var list = mutableListOf<BleuPrint>()
-
-//    [[Blueprint, 1, Each, ore, robot, costs, 4, ore., Each, clay, robot, costs, 4, ore., Each, obsidian, robot, costs, 4, ore, and, 17, clay., Each, geode, robot, costs, 4, ore, and, 16, obsidian.]
     for (line in inputLines) {
         var id = line[1]
         var robotOre = line[6].toInt()
@@ -31,29 +28,27 @@ fun main(args: Array<String>) {
             )
         )
     }
-    println(list)
 
-    var maxObs = 0
-    var maxGeo = 0
+    println("AnswerA : ${calculate(list, 24).withIndex().map { (it.index + 1) * it.value }.sum()}")
+    println("AnswerB : ${calculate(list.take(3).toMutableList(), 32).fold(1L) { i, j -> i * j }}")
+}
+
+private fun calculate(list: MutableList<BleuPrint>, time: Int): MutableList<Int> {
     var result = mutableListOf<Int>()
-
-    var time = 32
-    for (blueprint in list.take(3)) {
-        println("blueprint $blueprint.id")
-        println("blueprint ${blueprint.maxNeeded.joinToString { it.toString() }}")
-
-        var states = listOf(blueprint)
+    for (blueprint in list) {
+        var maxGeo = 0
+        var states = listOf(blueprint.copy())
         var earlyResult = mutableListOf<Int>()
         for (t in 0 until time) {
             var newStates = mutableListOf<BleuPrint>()
 
             for (state in states) {
-                if(optimisticBest(state, time - t, 2) <= state.robotGeode[2]) {
+                if (optimisticBest(state, time - t, 2) <= state.robotGeode[2]) {
                     earlyResult.add(state.available[3] + state.collect[3] * (time - t))
                     continue
                 }
 
-                var buildRobotOptions = state.canBuild(time-t)
+                var buildRobotOptions = state.canBuild(time - t)
                 state.produce()
                 if (t == time - 1) {
                     maxGeo = maxGeode(states, 3)
@@ -67,29 +62,22 @@ fun main(args: Array<String>) {
                     newStates.add(copy)
                 }
 
-                buildRobotOptions.forEach{state.block[it] = true}
+                buildRobotOptions.forEach { state.block[it] = true }
                 newStates.add(state) //When nothing is being build .
-//                maxObs = maxGeode(newStates, 2)
                 maxGeo = max(maxGeo, state.available[3])
             }
 
             states = newStates.filter { optimisticBest(it, time - t - 1, 3) > maxGeo }
 
 
-            println("size: ${states.size}")
-            println("time remaining ${time - t}")
+//            println("size: ${states.size}")
+//            println("time remaining ${time - t}")
 
         }
         earlyResult.add(maxGeo);
-        result.add( earlyResult.max());
+        result.add(earlyResult.max());
     }
-
-    //1328
-    println(result)
-    println(result.withIndex().map { (it.index + 1)*it.value }.sum())
-    println(result.fold(1L){i, j -> i*j})
-
-    println(inputLines)
+    return result
 }
 
 private fun maxGeode(newStates: Collection<BleuPrint>, res: Int) = newStates.map { it.available[res] }.max()
@@ -123,11 +111,7 @@ class BleuPrint(
     }
 
     fun produce() {
-        available[0] += collect[0]
-        available[1] += collect[1]
-        available[2] += collect[2]
-        available[3] += collect[3]
-//        available = plus(available, collect)
+        available = plus(available, collect)
     }
 
     fun buildRobot(buildOption: Int) {
@@ -146,11 +130,11 @@ class BleuPrint(
         return array
     }
 
-//    private fun plus(one: IntArray, two: IntArray): IntArray {
-//        var array = IntArray(4)
-//        for (i in one.indices) array[i] = one[i] + two[i]
-//        return array
-//    }
+    private fun plus(one: IntArray, two: IntArray): IntArray {
+        var array = IntArray(4)
+        for (i in one.indices) array[i] = one[i] + two[i]
+        return array
+    }
 
     override fun toString(): String {
         return "BleuPrint(id='$id', collect=[ ${collect.joinToString { it.toString() }}], available=[${available.joinToString { it.toString() }}]"
