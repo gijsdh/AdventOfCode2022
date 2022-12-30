@@ -17,8 +17,8 @@ fun main(args: Array<String>) {
     var sum = 0
     var sum2 = 0
     for (cube in set) {
-       sum += checkNeighbours(set, cube, true)
-        sum2 += checkNeighbours(set, cube, false)
+       sum += hasNoNeighbours(set, cube, true)
+        sum2 += hasNoNeighbours(set, cube, false)
     }
 
     println(sum)
@@ -70,7 +70,7 @@ fun checkOutside(cubes: MutableSet<Triple<Int, Int, Int>>, cube: Triple<Int, Int
 }
 
 
-private fun checkNeighbours(
+private fun hasNoNeighbours(
     cubes: MutableSet<Triple<Int, Int, Int>>,
     cube: Triple<Int, Int, Int>,
     part1: Boolean

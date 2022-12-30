@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
             if (score > max) {
                 max = score
             }
-            if (checkNeighbours(trees,  i, j)) {
+            if (hasNoNeighbours(trees,  i, j)) {
                 sum++
             }
         }
@@ -26,7 +26,7 @@ private fun isValidIndex(i: Int, j: Int, l: Int, k: Int): Boolean {
     return true
 }
 
-private fun checkNeighbours(numbers: Array<IntArray>, i: Int, j: Int): Boolean {
+private fun hasNoNeighbours(numbers: Array<IntArray>, i: Int, j: Int): Boolean {
     val ith = intArrayOf(0, 1, -1, 0)
     val jth = intArrayOf(1, 0, 0, -1)
     for (k in ith.indices) {
