@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
         //Only accept if only one elf proposed the new location
         val moves = proposedMoves.filter { it.value.size == 1 }
         if (moves.isEmpty()) {
-            println("Answer A : ${i + 1}");
+            println("Answer B : ${i + 1}");
             break
         }
 

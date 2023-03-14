@@ -16,11 +16,9 @@ fun main(args: Array<String>) {
     }
 
     var t = 0
-    while(t < 26) {
-
+    while (t < 26) {
 
         t++
-
     }
 
     println(map)
@@ -29,7 +27,6 @@ fun main(args: Array<String>) {
 
 class Valve(var name: String, var flow: Long) {
     var valves: MutableList<String> = mutableListOf()
-
     override fun toString(): String {
         return "name: $name size: $flow valves: $valves"
     }

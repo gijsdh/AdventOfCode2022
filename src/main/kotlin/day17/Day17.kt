@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
 
                 // We take the last 30 rows as the shape of the tower.
                 // And we look in the map if we have already seen this same shape with corresponding action and piece.
-                // If we have we know that we have a repeagin pattern and we can calculate the height which we gained.
+                // If we have we know that we have a repeating pattern, and we can calculate the height which we gained.
                 var shape = transformToZeroHeigh(totalTower)
                 var repeat = Triple(shape, (count % 5).toLong(), i.toLong())
                 if (repeatingShape.contains(repeat) && count > 2022) {
