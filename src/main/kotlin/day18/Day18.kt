@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
     var sum = 0
     var sum2 = 0
     for (cube in set) {
-       sum += hasNoNeighbours(set, cube, true)
+        sum += hasNoNeighbours(set, cube, true)
         sum2 += hasNoNeighbours(set, cube, false)
     }
 

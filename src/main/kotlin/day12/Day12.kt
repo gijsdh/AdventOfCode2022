@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.math.min
 
 fun main(args: Array<String>) {
     val input = getResourceAsText("input.txt")
@@ -73,7 +74,7 @@ private fun findMinimumCostPath(maze: Array<Array<String>>, start: Pair<Int, Int
                 && isValidMove(maze, index_I, index_J, i, j)) {
                 if (maze[index_I][index_J] == "E") return costMap[i][j] + 1
                 costMap[index_I][index_J] =
-                    java.lang.Long.min(costMap[index_I][index_J], costMap[i][j] + 1)
+                    min(costMap[index_I][index_J], costMap[i][j] + 1)
                 costQueue.add(Cost(index_I, index_J, costMap[index_I][index_J]))
             }
         }
